@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STG Studios</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0a0a0a;
+            color: #00ff88;
+            font-family: 'Courier New', monospace;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid #00ff88;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #00ff88;
+            text-shadow: 0 0 10px #00ff88;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .logo:hover {
+            text-shadow: 0 0 20px #00ff88, 0 0 30px #00ff88;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: #00ff88;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-links a:hover {
+            color: #ffffff;
+            text-shadow: 0 0 5px #00ff88;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #00ff88;
+            transition: width 0.3s ease;
+            box-shadow: 0 0 5px #00ff88;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(45deg, #0a0a0a, #1a1a1a);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(0, 255, 136, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(0, 255, 136, 0.1) 0%, transparent 50%);
+            animation: pulse 4s ease-in-out infinite alternate;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.3; }
+            100% { opacity: 0.7; }
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 2;
+            max-width: 800px;
+            padding: 2rem;
+        }
+
+        .hero h1 {
+            font-size: 5rem;
+            margin-bottom: 2rem;
+            text-shadow: 0 0 20px #00ff88;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 20px #00ff88, 0 0 30px #00ff88, 0 0 40px #00ff88; }
+            to { text-shadow: 0 0 10px #00ff88, 0 0 20px #00ff88, 0 0 30px #00ff88; }
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 3rem;
+            opacity: 0.8;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 15px 30px;
+            background: transparent;
+            border: 2px solid #00ff88;
+            color: #00ff88;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+
+        .cta-button:hover {
+            background: rgba(0, 255, 136, 0.1);
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
+            color: #ffffff;
+            transform: translateY(-2px);
+        }
+
+        /* Section Styles */
+        section {
+            padding: 4rem 2rem;
+        }
+
+        .section-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            color: #00ff88;
+            text-align: center;
+            margin-bottom: 3rem;
+            text-shadow: 0 0 15px #00ff88;
+        }
+
+        /* Games Section */
+        .games {
+            background: #111111;
+        }
+
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 3rem;
+        }
+
+        .game-card {
+            background: rgba(0, 255, 136, 0.05);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .game-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 255, 136, 0.3);
+            border-color: #00ff88;
+        }
+
+        .game-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-bottom: 1px solid rgba(0, 255, 136, 0.3);
+        }
+
+        .game-content {
+            padding: 2rem;
+        }
+
+        .game-title {
+            font-size: 1.8rem;
+            color: #00ff88;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 8px #00ff88;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            background: rgba(255, 255, 0, 0.2);
+            color: #ffff00;
+            border: 1px solid rgba(255, 255, 0, 0.5);
+            font-size: 0.8rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        .status-badge.demo {
+            background: rgba(0, 150, 255, 0.2);
+            color: #0096ff;
+            border-color: rgba(0, 150, 255, 0.5);
+        }
+
+        .status-badge.lite {
+            background: rgba(255, 150, 0, 0.2);
+            color: #ff9600;
+            border-color: rgba(255, 150, 0, 0.5);
+        }
+
+        .game-description {
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+            line-height: 1.8;
+        }
+
+        .game-controls {
+            background: rgba(0, 255, 136, 0.1);
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            border-left: 3px solid #00ff88;
+        }
+
+        .game-controls h4 {
+            color: #00ff88;
+            margin-bottom: 0.5rem;
+        }
+
+        .game-requirements {
+            background: rgba(0, 255, 136, 0.05);
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(0, 255, 136, 0.2);
+        }
+
+        .game-requirements h4 {
+            color: #00ff88;
+            margin-bottom: 0.5rem;
+        }
+
+        .game-requirements ul {
+            list-style: none;
+            padding-left: 1rem;
+        }
+
+        .game-requirements li {
+            margin-bottom: 0.3rem;
+            opacity: 0.8;
+        }
+
+        .game-requirements li::before {
+            content: '▶ ';
+            color: #00ff88;
+            margin-right: 0.5rem;
+        }
+
+        .game-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .game-button {
+            padding: 12px 24px;
+            background: transparent;
+            border: 2px solid #00ff88;
+            color: #00ff88;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-family: inherit;
+            font-weight: bold;
+            display: inline-block;
+        }
+
+        .game-button:hover {
+            background: rgba(0, 255, 136, 0.2);
+            color: #ffffff;
+            box-shadow: 0 0 15px rgba(0, 255, 136, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .game-button.primary {
+            background: rgba(0, 255, 136, 0.1);
+        }
+
+        .game-button.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            border-color: rgba(0, 255, 136, 0.3);
+        }
+
+        .game-button.disabled:hover {
+            background: transparent;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* About Section */
+        .about {
+            background: #0f0f0f;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .about-card {
+            background: rgba(0, 255, 136, 0.05);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .about-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 255, 136, 0.2);
+            border-color: #00ff88;
+        }
+
+        .about-card h3 {
+            font-size: 1.5rem;
+            color: #00ff88;
+            margin-bottom: 1rem;
+        }
+
+        .about-card p {
+            line-height: 1.8;
+            opacity: 0.9;
+        }
+
+        .highlight {
+            color: #ffffff;
+            font-weight: bold;
+        }
+
+        /* Team Section */
+        .team {
+            background: #111111;
+            text-align: center;
+        }
+
+        .team-member {
+            background: rgba(0, 255, 136, 0.05);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            padding: 3rem;
+            max-width: 400px;
+            margin: 0 auto;
+            transition: all 0.3s ease;
+        }
+
+        .team-member:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 255, 136, 0.2);
+            border-color: #00ff88;
+        }
+
+        .member-avatar {
+            width: 100px;
+            height: 100px;
+            background: rgba(0, 255, 136, 0.2);
+            border: 2px solid #00ff88;
+            border-radius: 50%;
+            margin: 0 auto 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+        }
+
+        .member-name {
+            font-size: 1.8rem;
+            color: #00ff88;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+
+        .member-role {
+            font-size: 1.2rem;
+            opacity: 0.8;
+            margin-bottom: 1rem;
+        }
+
+        /* Contact Section */
+        .contact {
+            background: #0f0f0f;
+            text-align: center;
+        }
+
+        .contact-info {
+            background: rgba(0, 255, 136, 0.05);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            padding: 3rem;
+            max-width: 600px;
+            margin: 0 auto;
+            transition: all 0.3s ease;
+        }
+
+        .contact-info:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 255, 136, 0.2);
+            border-color: #00ff88;
+        }
+
+        .email-section h3 {
+            font-size: 1.5rem;
+            color: #00ff88;
+            margin-bottom: 1rem;
+        }
+
+        .email-link {
+            font-size: 1.3rem;
+            color: #00ff88;
+            text-decoration: none;
+            padding: 1rem 2rem;
+            border: 2px solid #00ff88;
+            display: inline-block;
+            transition: all 0.3s ease;
+            background: transparent;
+        }
+
+        .email-link:hover {
+            background: rgba(0, 255, 136, 0.1);
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
+            color: #ffffff;
+            transform: translateY(-2px);
+        }
+
+        .contact-message {
+            margin-top: 2rem;
+            line-height: 1.8;
+            opacity: 0.9;
+        }
+
+        /* Footer */
+        footer {
+            background: #000000;
+            text-align: center;
+            padding: 2rem;
+            border-top: 1px solid #00ff88;
+        }
+
+        .copyright {
+            opacity: 0.6;
+            font-size: 0.9rem;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .games-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .game-buttons {
+                flex-direction: column;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Animation classes */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">STG STUDIOS</div>
+            <ul class="nav-links">
+                <li><a href="#home">HOME</a></li>
+                <li><a href="#games">GAMES</a></li>
+                <li><a href="#about">ABOUT</a></li>
+                <li><a href="#team">TEAM</a></li>
+                <li><a href="#contact">CONTACT</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <h1>STG STUDIOS</h1>
+                <p class="hero-subtitle">Independent Game Development Studio</p>
+                <div class="cta-buttons">
+                    <a href="#games" class="cta-button">VIEW GAMES</a>
+                    <a href="#about" class="cta-button">LEARN MORE</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Games Section -->
+        <section id="games" class="games">
+            <div class="section-container">
+                <h2 class="section-title">OUR GAMES</h2>
+                <div class="games-grid">
+                    <!-- The Cowboy Adventure Alpha -->
+                    <div class="game-card fade-in">
+                        <img src="https://img.itch.zone/aW1hZ2UvMzc0NDM0OC8yMjI4OTQ5Ni5wbmc=/original/ps61FN.png" alt="The Cowboy Adventure Alpha" class="game-image">
+                        <div class="game-content">
+                            <div class="status-badge">ALPHA</div>
+                            <h3 class="game-title">The Cowboy Adventure Alpha</h3>
+                            <div class="game-description">
+                                <p><strong>Welcome to The Cowboy Adventure!</strong></p>
+                                <p><strong>The Cowboy Adventure</strong> is a 2D platformer game that is cowboy style.</p>
+                                <p><strong>Note:</strong> The game isn't fully made it currently only has 3 levels and its not much playable you are in ground there is a enemy but you can't kill it and it can kill you</p>
+                            </div>
+                            <div class="game-controls">
+                                <h4>Controls:</h4>
+                                <p><strong>A D</strong> or Arrow Keys</p>
+                                <p><strong>Space</strong> To Jump</p>
+                            </div>
+                            <div class="game-buttons">
+                                <a href="https://www.dropbox.com/scl/fi/evio7rfkpqvxpwjx719m1/The-Cowboy-Adventure.zip?rlkey=olplsap3odnd634gu6ajlnmf4&st=3gxv00c6&dl=1" class="game-button primary">DOWNLOAD</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- The Cowboy Adventure II Demo -->
+                    <div class="game-card fade-in">
+                        <img src="https://img.itch.zone/aW1hZ2UvMzg5MzIwNC8yMzMzMjU2NS5wbmc=/original/duvFxA.png" alt="The Cowboy Adventure II Demo" class="game-image">
+                        <div class="game-content">
+                            <div class="status-badge demo">DEMO</div>
+                            <h3 class="game-title">The Cowboy Adventure II Demo</h3>
+                            <div class="game-description">
+                                <p>The sequel to The Cowboy Adventure with improved gameplay and new features.</p>
+                            </div>
+                            <div class="game-buttons">
+                                <a href="https://youtu.be/ZyTUEhc9cZ0?si=w0lbPAmOFB6iG_LO" class="game-button">WATCH TRAILER</a>
+                                <span class="game-button disabled">DOWNLOAD NOT AVAILABLE</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Mythical Combat Lite -->
+                    <div class="game-card fade-in">
+                        <img src="https://img.itch.zone/aW1hZ2UvMzgzOTA0NC8yMjg5NTMxOC5wbmc=/347x500/%2FU9kyu.png" alt="Mythical Combat Lite" class="game-image">
+                        <div class="game-content">
+                            <div class="status-badge lite">LITE</div>
+                            <h3 class="game-title">Mythical Combat Lite</h3>
+                            <div class="game-description">
+                                <p><strong>Welcome To Mythical Combat Lite</strong></p>
+                                <p><strong>MCL</strong> is a <strong>Third Person</strong> combat game made by <strong>STG Studios</strong> in <strong>Unreal Engine 5</strong> and it's not a full game so you only spawn in a are with a robot to fight with then you go to the gate and it opens and you enter the second level with more robots spawning then you go to last level which is a small area and you can punch the robots into the void</p>
+                            </div>
+                            <div class="game-controls">
+                                <h4>Controls:</h4>
+                                <p><strong>WASD</strong> To Move</p>
+                                <p><strong>Right/Left Click</strong> To Punch</p>
+                            </div>
+                            <div class="game-requirements">
+                                <h4>Minimum Requirements:</h4>
+                                <p>The world isn't large so the minimum requirements is the minimum requirements for <strong>Unreal Engine 5</strong></p>
+                                <ul>
+                                    <li><strong>Operating System:</strong> Windows 10 64-bit (version 1703 or later)</li>
+                                    <li><strong>Processor:</strong> Quad-core Intel or AMD processor, 2.5 GHz or faster</li>
+                                    <li><strong>Memory:</strong> 8 GB RAM</li>
+                                    <li><strong>Graphics Card:</strong> DirectX 11 or 12 compatible graphics card</li>
+                                    <li><strong>DirectX Runtime:</strong> DirectX End-User Runtimes (June 2010)</li>
+                                </ul>
+                            </div>
+                            <div class="game-buttons">
+                                <a href="https://www.dropbox.com/scl/fi/xhbns4568qe6brj5rnrej/MythicalCombat.zip?rlkey=61f36zpbucwjzixkcjkk2gan7&st=lcbinjn4&dl=1" class="game-button primary">DOWNLOAD</a>
+                                <a href="https://youtu.be/S3vI0Sa_New?si=4QUOwXR_JAh3_d2E" class="game-button">WATCH TRAILER</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="about">
+            <div class="section-container">
+                <h2 class="section-title">ABOUT STG STUDIOS</h2>
+                <div class="about-grid">
+                    <div class="about-card fade-in">
+                        <h3>Who We Are</h3>
+                        <p>STG Studios is an independent game development studio dedicated to crafting immersive and thrilling <span class="highlight">3D gaming experiences</span>. Our mission is to bring <span class="highlight">creativity</span>, <span class="highlight">innovation</span>, and <span class="highlight">fun</span> to every project we undertake.</p>
+                    </div>
+                    <div class="about-card fade-in">
+                        <h3>Our Journey</h3>
+                        <p>Founded in <span class="highlight">2023</span> as <span class="highlight">Gops Games</span>, STG Studios initially explored multiplayer games. While no multiplayer titles were released at the time, this period was crucial for building the foundation of creativity, technical expertise, and vision that drives our studio today.</p>
+                    </div>
+                    <div class="about-card fade-in">
+                        <h3>Our First Release</h3>
+                        <p>Our debut official game, <span class="highlight">The Cowboy Adventure</span>, is a 2D platformer with a classic cowboy theme. The Alpha version launched on <span class="highlight">July 23, 2025</span>, and was later delisted on <span class="highlight">August 26, 2025</span>, marking an important milestone in our ongoing journey of growth and innovation.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Team Section -->
+        <section id="team" class="team">
+            <div class="section-container">
+                <h2 class="section-title">OUR TEAM</h2>
+                <div class="team-member fade-in">
+                    <div class="member-avatar">YM</div>
+                    <div class="member-name">YMutiri</div>
+                    <div class="member-role">CEO, Founder, Developer</div>
+                    <p>Leading STG Studios with vision and passion for creating innovative gaming experiences.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="contact">
+            <div class="section-container">
+                <h2 class="section-title">CONTACT US</h2>
+                <div class="contact-info fade-in">
+                    <div class="email-section">
+                        <h3>Get In Touch</h3>
+                        <a href="mailto:Contact@stgstudios.com" class="email-link">Contact@stgstudios.com</a>
+                    </div>
+                    <div class="contact-message">
+                        <p>Whether you have questions about our games, want to collaborate, or just want to say hello, we'd love to hear from you!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="copyright">
+            &copy; 2025 STG STUDIOS. ALL RIGHTS RESERVED.
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Logo click to top
+        document.querySelector('.logo').addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Disable clicks on disabled buttons
+        document.querySelectorAll('.game-button.disabled').forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.preventDefault();
+            });
+        });
+
+        // Active navigation highlighting
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
+            
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= (sectionTop - 200)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
